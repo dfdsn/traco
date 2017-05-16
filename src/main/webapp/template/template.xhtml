@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>
+	
+	<ui:insert name="titulo"></ui:insert>
+	</title>
+
+	<h:outputStylesheet library="css" name="estilos.css"></h:outputStylesheet>
+
+</h:head>
+<h:body>
+<p:growl id="mensagem" />
+
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" styleClass="fadeIn" />
+
+ <p:dialog widgetVar="statusDialog" modal="true" 
+   draggable="false" closable="false" resizable="false" 
+   showHeader="false" >
+  <div align="center">
+   <p:outputLabel value="PROCESSANDO..." /><br/>
+      <p:graphicImage library="img" name="loader.gif" />
+     </div>
+ </p:dialog>
+
+
+	<div class="ui-fluid">
+
+		<div class="topo">
+			<p:graphicImage name="logo.png" library="img" />
+
+
+
+		</div>
+		<!-- fechamento da div topo -->
+		<div class="menu">
+			<h:form>
+				<p:dock position="top">
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+					<p:menuitem value="HOM" icon="/resources/img/add.png" />
+				</p:dock>
+			</h:form>
+
+		</div>
+		<!-- fechamento da div menu -->
+
+		<div class="conteudo">
+			<ui:insert name="conteudo"></ui:insert>
+
+
+		</div>
+		<!-- fechamento da div conteudo -->
+
+
+		<div class="footer"></div>
+		<!-- fechamento da div footer -->
+
+	</div>
+	<!-- fechamento da div geral -->
+
+
+
+
+
+
+</h:body>
+
+</html>
