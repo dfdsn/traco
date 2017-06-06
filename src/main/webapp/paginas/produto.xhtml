@@ -100,12 +100,12 @@
 				<h:outputText value="#{prod.qtoMin}" />
 			</p:column>
 			
-				<p:column headerText="Media QTD" sortBy="#{prod.dimensoes}" filterBy="#{prod.dimensoes}"
-			  style="width:23%" filterStyle="display:none; visibility:hidden;"
+				<p:column headerText="Status" sortBy="#{prod.dimensoes}" filterBy="#{prod.dimensoes}"
+			  style="width:10%" filterStyle="display:none; visibility:hidden;"
 			  filterMatchMode="contains">
-				<h:outputText value="#{prod.dimensoes}" />
+<!-- 				<h:outputText value="#{prod.dimensoes}" /> -->
+<p:graphicImage library="img" name="#{prod.qto lt prod.qtoMin ? 'circle_red.png' : prod.qto gt prod.qtoMin ? 'circle_green.png' : 'circle_yellow.png'  }" />
 			</p:column>
-
 			
 			<p:column headerText="Opções" style="width:15%">
 				

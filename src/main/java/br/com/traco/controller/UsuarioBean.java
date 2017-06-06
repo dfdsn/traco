@@ -10,11 +10,14 @@ import javax.inject.Named;
 import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.traco.model.Empresa;
 import br.com.traco.model.Usuario;
+import br.com.traco.repository.EmpresaRepository;
 import br.com.traco.repository.UsuarioRepository;
 import lombok.Data;
 
 @Named
+//@ManagedBean
 @ViewScoped
 @Data
 public class UsuarioBean {
@@ -23,15 +26,21 @@ public class UsuarioBean {
 	private UsuarioRepository dao;
 
 	@Autowired
+	private EmpresaRepository edao;
+	
+	@Autowired
 	private Usuario usuario;
 
 	// private Usuario usuario = new Usuario();
 
 	private List<Usuario> usuarios;
+	
+	private List<Empresa> empresas;
 
 	@PostConstruct
 	public void listar() {
 
+		
 		usuarios = dao.todos();
 		novo();
 	}
@@ -52,7 +61,17 @@ public class UsuarioBean {
 	
 
 	public void novo() {
-		usuario = new Usuario();
+		try {
+
+			usuario = new Usuario();
+			empresas =	edao.findAll();
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		
+		}
+		
 	}
 
 	public void excluir(ActionEvent evento) {

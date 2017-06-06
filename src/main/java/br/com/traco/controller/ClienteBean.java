@@ -1,6 +1,5 @@
 package br.com.traco.controller;
 
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 

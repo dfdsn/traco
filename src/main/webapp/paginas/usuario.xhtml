@@ -28,17 +28,32 @@
 					<p:inputText value="#{usuarioBean.usuario.email}" />
 
 					<p:outputLabel value="Empresa:" />
-					<p:inputText value="#{usuarioBean.usuario.empresa}" />
+
+
+						<p:selectOneMenu id="estado" filter="true"
+					value="#{usuarioBean.usuario.empresa}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo 'Estado' é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um estado" />
+					<f:selectItems value="#{usuarioBean.empresas}" var="e"
+						itemValue="#{e}" itemLabel="#{e.nome} |-| #{e.cnpj}" />
+				</p:selectOneMenu>
+
+
+
+
+
 
 					<p:outputLabel value="Função:" />
-					<p:inputText value="#{usuarioBean.usuario.funcao}"></p:inputText>
+					<p:inputText value="#{usuarioBean.usuario.funcao}" />
 
 					<p:outputLabel value="Password:" />
 					<p:password value="#{usuarioBean.usuario.pass}" feedback="true"  promptLabel="Por favor insira uma senha" weakLabel="fraco"
                     goodLabel="nível médio" strongLabel="forte" />
 					<f:facet name="footer">
 					
-							<p:inputText value="#{usuarioBean.usuario.id}" style="visibility:hidden;"/>
+							<p:inputText value="#{usuarioBean.usuario.id}" style="visibility:hidden; display:none;"/>
 						<p:commandButton value="salvar" action="#{usuarioBean.salvar}"
 							update=":mensagem :frmCad:pnlCad :formUsu:dtbUsu" />
 					</f:facet>
@@ -73,8 +88,7 @@
 
 			</f:facet>
 
-<!--  -->
-<!-- filterMatchMode="contains" -->
+
 
 			<p:column headerText="Id" sortBy="#{usu.id}"  style="width:6%"	filterBy="#{usu.id}" filterMatchMode="contains"		filterStyle="display:none; visibility:hidden;"	>
 				<h:outputText value="#{usu.id}" />
@@ -104,7 +118,7 @@
 			<p:column headerText="Empresa" sortBy="#{usu.empresa}" filterBy="#{usu.empresa}"
 				 style="width:16%" filterStyle="display:none; visibility:hidden;"
 				filterMatchMode="contains">
-				<h:outputText value="#{usu.empresa}" />
+				<h:outputText value="#{usu.empresa.nome}" />
 			</p:column>
 
 			<p:column headerText="Função" sortBy="#{usu.funcao}" filterBy="#{usu.funcao}"

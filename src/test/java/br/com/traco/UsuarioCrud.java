@@ -33,7 +33,6 @@ public class UsuarioCrud {
 		 Usuario u = new Usuario();
 		
 		u.setEmail("email");
-		u.setEmpresa("empresa");
 		u.setNome("nome");
 		u.setPass("pass");
 		
