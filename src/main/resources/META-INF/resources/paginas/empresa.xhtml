@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="frmCad">
+			<p:fieldset id="fielCad" legend="Cadastro de empresas"
+				style="font-family: serif; font-size: 16px" toggleable="true"
+				toggleSpeed="500" collapsed="true">
+				<p:panelGrid id="pnlCad" columns="4" layout="grid"
+					styleClass="ui-noborder">
+
+
+
+					<p:outputLabel value="CNPJ:" />
+					<p:inputMask value="#{empresaBean.empresa.cnpj}"
+						mask="99.999.999/9999-99" />
+
+					<p:outputLabel value="Nome:" />
+					<p:inputText value="#{empresaBean.empresa.nome}" />
+
+					<p:outputLabel value="Tel:" />
+					<p:inputMask value="#{empresaBean.empresa.tel}"
+						mask="(99)-9-9999-9999" />
+
+					<f:facet name="footer">
+
+						<p:inputText value="#{empresaBean.empresa.id}"
+							style="visibility:hidden;display:none;" />
+						<p:commandButton value="salvar" action="#{empresaBean.salvar}"
+							update=":mensagem :frmCad:pnlCad :formEmp:dtbEmp" />
+					</f:facet>
+
+				</p:panelGrid>
+
+			</p:fieldset>
+		</h:form>
+
+		<br />
+
+		<div style="text-align: center;">
+
+			<h:form id="formEmp">
+
+				<p:dataTable id="dtbEmp" emptyMessage="Nenhum registro encontrado" widgetVar="filEmp"
+					value="#{empresaBean.empresas}" var="emp" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20,30,50" draggableColumns="true"
+					draggableRows="true" filteredValue="#{empresaBean.filtrados}" >
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Consulta Global: " />
+							<p:inputText id="globalFilter" onkeyup="PF('filEmp').filter()"
+								style="width:150px" placeholder="Insira a consulta" />
+						</p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="Id" sortBy="#{usu.id}" filterBy="#{emp.id}"
+						style="width:6%" filterStyle="display:none; visibility:hidden;">
+						<h:outputText value="#{emp.id}" />
+					</p:column>
+
+					<p:column headerText="Nome" sortBy="#{emp.nome}"
+						filterBy="#{emp.nome}"
+						filterStyle="display:none; visibility:hidden;" style="width:25%">
+						<h:outputText value="#{emp.nome}" />
+					</p:column>
+
+
+					<p:column headerText="CNPJ" sortBy="#{emp.cnpj}"
+						filterBy="#{emp.cnpj}"
+						filterStyle="display:none; visibility:hidden;" style="width:15%">
+						<h:outputText value="#{emp.cnpj}" />
+					</p:column>
+
+
+					<p:column headerText="Telefone" sortBy="#{emp.tel}"
+						filterBy="#{emp.tel}"
+						filterStyle="display:none; visibility:hidden;" style="width:23%">
+						<h:outputText value="#{emp.tel}" />
+					</p:column>
+
+
+					<p:column headerText="Opções" style="width:8%">
+						<p:commandButton icon="ui-icon-trash" style="width:30px"
+							actionListener="#{empresaBean.excluir}"
+							update=":mensagem :formEmp:dtbEmp">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir a empresa?" icon="ui-icon-alert" />
+
+							<f:attribute name="empSelecionado" value="#{emp}" />
+						</p:commandButton>
+
+
+						<p:commandButton icon="ui-icon-pencil" style="width:30px"
+							actionListener="#{empresaBean.editar}" update=":frmCad:fielCad">
+							<f:attribute name="empSelecionado" value="#{emp}" />
+						</p:commandButton>
+					</p:column>
+
+
+
+
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+			</h:form>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

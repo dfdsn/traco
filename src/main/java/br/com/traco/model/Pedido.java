@@ -1,32 +1,35 @@
 package br.com.traco.model;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Named;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 
-@Named
 @Entity
 @Data
+@Named
 public class Pedido {
 
+	
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String pedido;
-	private String xPedido;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataPedido;
-	@OneToMany
-	private List<Produto> produto;
+	private String numPedido;
+	private String dados;
+	private Long qto;
 	private String obs;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
+	
+	
+	
+
+	
+	
 	
 }

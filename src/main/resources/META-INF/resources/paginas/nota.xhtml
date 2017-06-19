@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="frmCad">
+			<p:fieldset id="fielCad" legend="Cadastro de Usuários"
+				style="font-family: serif; font-size: 16px" toggleable="true"
+				toggleSpeed="500" collapsed="true">
+				<p:panelGrid id="pnlCad" columns="4" layout="grid"
+					styleClass="ui-noborder">
+
+					<p:outputLabel value="Num Nota Fiscal:" />
+					<p:inputText value="#{notaBean.fiscal.numNF}" />
+
+	<p:selectOneMenu id="pedido" filter="true" value="#{notaBean.fiscal.pedido}" 
+	 required="true" requiredMessage="O campo 'Pedido' é obrigatório"
+	 converter="omnifaces.SelectItemsConverter">		
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o pedido" />
+				
+		<f:selectItems value="#{notaBean.pedidos}" var="pd"
+						 itemLabel="#{pd.qto}" itemValue="#{pd}" />
+				
+				
+<!-- 					<f:selectItems value="#{notaBean.pedidos}" /> -->
+					
+<!-- 					<f:selectItems value="#{notaBean.pedidos}" var="e" -->
+<!-- 						itemValue="#{e.id}" itemLabel="#{e.numPedido} |-| #{e.qto}" /> -->
+	</p:selectOneMenu>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 					<p:outputLabel value="Pedido Nota Fiscal:" /> -->
+<!-- 					<p:inputText value="#{notaBean.fiscal.pedido}" /> -->
+
+					<p:outputLabel value="Data Nota Fiscal:" />
+					<p:calendar value="#{notaBean.fiscal.dataNF}" />
+
+					<f:facet name="footer">
+<p:inputText value="#{notaBean.fiscal.id}" style="visibility:hidden; display:none;"/>
+
+						<p:commandButton value="salvar" action="#{notaBean.salvar}"
+							update=":mensagem :frmCad:pnlCad :formNota:dtbNota" />
+					</f:facet>
+
+
+				</p:panelGrid>
+
+			</p:fieldset>
+		</h:form>
+		<br />
+
+
+
+		<div style="text-align: center;">
+
+
+			<h:form id="formNota">
+
+				<p:dataTable id="dtbNota" emptyMessage="Nenhum registro encontrado"
+					widgetVar="dtNota" value="#{notaBean.notas}" var="nf" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20,30,50" draggableColumns="true"
+					draggableRows="true">
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Consulta Global: " />
+							<p:inputText id="globalFilter" onkeyup="PF('dtNota').filter()"
+								style="width:150px" placeholder="Insira a consulta" />
+						</p:outputPanel>
+
+
+					</f:facet>
+
+
+					<p:column headerText="Id" sortBy="#{nf.id}" style="width:6%"
+						filterBy="#{nf.id}" filterMatchMode="contains"
+						filterStyle="display:none; visibility:hidden;">
+						<h:outputText value="#{nf.id}" />
+					</p:column>
+
+					<p:column headerText="Num NF" sortBy="#{nf.numNF}"
+						filterBy="#{nf.numNF}" style="width:25%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{nf.numNF}" />
+					</p:column>
+
+
+					<p:column headerText="Num Pedido" sortBy="#{nf.pedido.numPedido}"
+						filterBy="#{nf.pedido.numPedido}" style="width:25%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{nf.pedido.numPedido}" />
+					</p:column>
+
+
+					<p:column headerText="Data NF" sortBy="#{nf.dataNF}"
+						filterBy="#{nf.dataNF}" style="width:15%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{nf.dataNF}" />
+					</p:column>
+
+
+
+
+					<p:column headerText="Opções" style="width:8%">
+						<p:commandButton icon="ui-icon-trash" style="width:30px"
+							actionListener="#{notaBean.excluir}"
+							update=":mensagem :formNota:dtbNota">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o usuario?" icon="ui-icon-alert" />
+							<f:attribute name="nfSelecionado" value="#{nf}" />
+						</p:commandButton>
+
+
+						<p:commandButton icon="ui-icon-pencil" style="width:30px"
+							actionListener="#{notaBean.editar}" update=":frmCad:fielCad">
+							<f:attribute name="nfSelecionado" value="#{nf}" />
+						</p:commandButton>
+					</p:column>
+
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+			</h:form>
+
+
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>

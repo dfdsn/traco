@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,9 +27,12 @@ public class NotaFis {
 	@NotEmpty(message="O campo 'Numero da nota' deve ser preenchido")
 	private String numNF;
 
-	private String pedido;
+	@JoinColumn
+	@ManyToOne
+	@NotEmpty(message="O campo 'pedido' deve ser preenchido")
+	private Pedido pedido;
 	
-	
+	@NotEmpty(message="O campo 'Data da NF' deve ser preenchido")
 	@Temporal(TemporalType.DATE)
 	private Date dataNF;
 
