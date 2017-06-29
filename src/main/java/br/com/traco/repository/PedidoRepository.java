@@ -14,9 +14,12 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 	
 	
 	
-//	@Query("select p from Pedido p where status = true")
-//	public List<Pedido> fechados();
+	@Query("select p from Pedido p where status = 'FECHADO' ")
+	public List<Pedido> fechados();
 	
+	
+	@Query("select p from Pedido p where status = 'ABERTO' ")
+	public List<Pedido> abertos();
 	
 
 

@@ -16,24 +16,25 @@
 				<p:panelGrid id="pnlCad" columns="4" layout="grid"
 					styleClass="ui-noborder">
 
-			
+
 
 					<p:outputLabel value="Nome:" />
 					<p:inputText value="#{produtoBean.produto.nome}" />
 
-					
-										<p:outputLabel value="Dimenssões:" />
+
+					<p:outputLabel value="Dimenssões:" />
 					<p:inputText value="#{produtoBean.produto.dimensoes}" />
 
-										<p:outputLabel value="Quantidade:" />
+					<p:outputLabel value="Quantidade:" />
 					<p:spinner value="#{produtoBean.produto.qto}" />
 
-										<p:outputLabel value="Quantidade Min:" />
+					<p:outputLabel value="Quantidade Min:" />
 					<p:spinner value="#{produtoBean.produto.qtoMin}" />
 
 
 					<f:facet name="footer">
-							<p:inputText value="#{produtoBean.produto.id}" style="visibility:hidden; display:none;" />
+						<p:inputText value="#{produtoBean.produto.id}"
+							style="visibility:hidden; display:none;" />
 						<p:commandButton value="salvar" action="#{produtoBean.salvar}"
 							update=":mensagem :frmCad:pnlCad :formProd:dtbProd" />
 					</f:facet>
@@ -46,123 +47,162 @@
 
 
 
-<div style="text-align: center;">
+		<div style="text-align: center">
 
 
-<h:form id="formProd">
+			<h:form id="formProd">
 
-		<p:dataTable id="dtbProd" emptyMessage="Nenhum registro encontrado" widgetVar="dtProd"
-			value="#{produtoBean.produtos}" var="prod" rows="10" paginator="true"
-			paginatorPosition="bottom"
-			paginatorTemplate="{CurrentPageReport}  {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15,20,30,50"
-			draggableColumns="true" draggableRows="true">
+				<p:dataTable id="dtbProd" emptyMessage="Nenhum registro encontrado"
+					widgetVar="dtProd" value="#{produtoBean.produtos}" var="prod"
+					rows="10" paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20,30,50" draggableColumns="true"
+					draggableRows="true">
 
-			<f:facet name="header">
-  <p:outputPanel>
-                <h:outputText value="Consulta Global: " />
-                <p:inputText id="globalFilter" onkeyup="PF('dtProd').filter()" style="width:150px" placeholder="Insira a consulta"/>
-            </p:outputPanel>				
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Consulta Global: " />
+							<p:inputText id="globalFilter" onkeyup="PF('dtProd').filter()"
+								style="width:150px" placeholder="Insira a consulta" />
+						</p:outputPanel>
 
-			</f:facet>
-
-
-			<p:column headerText="Id" sortBy="#{prod.id}"  style="width:6%"	filterBy="#{prod.id}" filterMatchMode="contains"		filterStyle="display:none; visibility:hidden;"	>
-				<h:outputText value="#{prod.id}" />
-			</p:column>
-
-			<p:column headerText="Nome" sortBy="#{prod.nome}" filterBy="#{prod.nome}"
-				 style="width:25%" filterStyle="display:none; visibility:hidden;"
-				filterMatchMode="contains">
-				<h:outputText value="#{prod.nome}" />
-			</p:column>
+					</f:facet>
 
 
+					<p:column headerText="Id" sortBy="#{prod.id}" style="width:6%"
+						filterBy="#{prod.id}" filterMatchMode="contains"
+						filterStyle="display:none; visibility:hidden;">
+						<h:outputText value="#{prod.id}" />
+					</p:column>
 
-
-
-	<p:column headerText="Dimensões" sortBy="#{prod.dimensoes}" filterBy="#{prod.dimensoes}"
-			  style="width:23%" filterStyle="display:none; visibility:hidden;"
-			  filterMatchMode="contains">
-				<h:outputText value="#{prod.dimensoes}" />
-			</p:column>
-
-
-	<p:column headerText="Quantidade" sortBy="#{prod.qto}" filterBy="#{prod.qto}"
-			  style="width:23%" filterStyle="display:none; visibility:hidden;"
-			  filterMatchMode="contains">
-				<h:outputText value="#{prod.qto}" />
-			</p:column>
-			
-				<p:column headerText="Quantodade Min" sortBy="#{prod.qtoMin}" filterBy="#{prod.qtoMin}"
-			  style="width:23%" filterStyle="display:none; visibility:hidden;"
-			  filterMatchMode="contains">
-				<h:outputText value="#{prod.qtoMin}" />
-			</p:column>
-			
-				<p:column headerText="Status" sortBy="#{prod.dimensoes}" filterBy="#{prod.dimensoes}"
-			  style="width:10%" filterStyle="display:none; visibility:hidden;"
-			  filterMatchMode="contains">
-<!-- 				<h:outputText value="#{prod.dimensoes}" /> -->
-<p:graphicImage library="img" name="#{prod.qto lt prod.qtoMin ? 'circle_red.png' : prod.qto gt prod.qtoMin ? 'circle_green.png' : 'circle_yellow.png'  }" />
-			</p:column>
-			
-			<p:column headerText="Opções" style="width:15%">
-				
-				<p:commandButton icon="ui-icon-trash" style="width:30px" actionListener="#{produtoBean.excluir}" update=" :formProd:dtbProd :mensagem " >
-					<p:confirm header="Confirmação" message="Deseja excluir o material?"
-							icon="ui-icon-alert" />
-					<f:attribute name="prodSelecionado" value="#{prod}"/>				
-				</p:commandButton>
-				
-				
-				
-				<p:commandButton icon="ui-icon-pencil" style="width:30px " actionListener="#{produtoBean.editar}" update=":frmCad:fielCad" >
-					<f:attribute name="prodSelecionado" value="#{prod}"/>
-				</p:commandButton>
-				
-				<p:commandButton icon="ui-icon-transferthick-e-w" style="width:30px" onclick="PF('movimentacao_estoque').show()"  actionListener="#{produtoBean.editar}" update=":frmCad">
-					<f:attribute name="prodSelecionado" value="#{prod}"/>
-				</p:commandButton>
-				
-			</p:column>
-
-
-		</p:dataTable>
-
-		
-		 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-    </p:confirmDialog>
-
-
-				<p:dialog header="MOVIMENTAÇÃO DE ESTOQUE" widgetVar="movimentacao_estoque"
-					showEffect="explode" hideEffect="explode" height="100" id="mov">
-
-					<p:outputLabel value="Nome:" />
-					<p:inputText value="#{produtoBean.produto.nome}" />
-
-					<p:outputLabel value="Dimenssões:" />
-					<p:inputText value="#{produtoBean.produto.dimensoes}" />
-
-					<p:outputLabel value="Quantidade:" />
-					<p:spinner value="#{produtoBean.produto.qto}" />
-
-					<p:outputLabel value="Quantidade Min:" />
-					<p:spinner value="#{produtoBean.produto.qtoMin}" />
+					<p:column headerText="Nome" sortBy="#{prod.nome}"
+						filterBy="#{prod.nome}" style="width:25%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{prod.nome}" />
+					</p:column>
 
 
 
-				</p:dialog>
 
 
+					<p:column headerText="Dimensões" sortBy="#{prod.dimensoes}"
+						filterBy="#{prod.dimensoes}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{prod.dimensoes}" />
+					</p:column>
 
+
+					<p:column headerText="Quantidade" sortBy="#{prod.qto}"
+						filterBy="#{prod.qto}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{prod.qto}" />
+					</p:column>
+
+					<p:column headerText="Quantodade Min" sortBy="#{prod.qtoMin}"
+						filterBy="#{prod.qtoMin}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{prod.qtoMin}" />
+					</p:column>
+
+					<p:column headerText="Status" sortBy="#{prod.dimensoes}"
+						filterBy="#{prod.dimensoes}" style="width:10%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<p:graphicImage library="img"
+							name="#{prod.qto lt prod.qtoMin ? 'circle_red.png' : prod.qto gt prod.qtoMin ? 'circle_green.png' : 'circle_yellow.png'  }" />
+					</p:column>
+
+					<p:column headerText="Opções" style="width:15%">
+
+						<p:commandButton icon="ui-icon-trash" style="width:30px"
+							actionListener="#{produtoBean.excluir}"
+							update=" :formProd:dtbProd :mensagem ">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o material?" icon="ui-icon-alert" />
+							<f:attribute name="prodSelecionado" value="#{prod}" />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-pencil" style="width:30px "
+							actionListener="#{produtoBean.editar}" update=":frmCad:fielCad">
+							<f:attribute name="prodSelecionado" value="#{prod}" />
+						</p:commandButton>
+
+						<p:commandButton icon="ui-icon-transferthick-e-w"
+							style="width:30px" onclick="PF('movimentacao_estoque').show()"
+							actionListener="#{produtoBean.editar}" update=":frmMov:pgMov">
+							<f:attribute name="prodSelecionado" value="#{prod}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
 
 			</h:form>
 
+			<h:form id="frmMov">
+				<p:dialog header="MOVIMENTAÇÃO DE ESTOQUE"
+					widgetVar="movimentacao_estoque" showEffect="explode"
+					hideEffect="explode" height="100" id="mov">
+					<p:panelGrid columns="4" id="pgMov">
 
-</div>
+						<p:outputLabel value="Quantidade:" />
+						<p:spinner value="#{retiradaBean.retirada.quantidade}" />
+
+						<p:outputLabel value="Usuario" />
+						<p:selectOneMenu id="selecUsuario"
+							value="#{retiradaBean.retirada.usuario}" filter="true"
+							filterMatchMode="contains"
+							converter="omnifaces.SelectItemsConverter" required="true"
+							requiredMessage="O campo 'Usuario' deve ser preenchido">
+							<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione o Usuario" />
+							<f:selectItems value="#{retiradaBean.usuarios}" var="r"
+								itemValue="#{r}" itemLabel="#{r.nome}" />
+						</p:selectOneMenu>
+
+
+
+
+
+<ui:remove>
+						<p:outputLabel value="Produto:" />
+						
+						<p:selectOneMenu id="selecProduto" value="#{retiradaBean.retirada.produtoMovimentado}" 
+						filter="true" filterMatchMode="contains" converter="omnifaces.SelectItemsConverter" 
+						required="true" requiredMessage="O campo 'Produto' deve ser preenchido"	>
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione o Produto" />
+						<f:selectItems value="#{retiradaBean.produtos}" var="p" itemValue="#{p}" itemLabel="#{p.nome}"/>
+						</p:selectOneMenu>
+</ui:remove>
+
+
+
+						<p:outputLabel value="Data Retirada" />
+						<p:calendar value="#{retiradaBean.retirada.data}" />
+						<p:commandButton value="salvar"
+							actionListener="#{retiradaBean.salvar}" />
+
+					</p:panelGrid>
+				</p:dialog>
+			</h:form>
+
+
+
+
+
+
+		</div>
 
 
 

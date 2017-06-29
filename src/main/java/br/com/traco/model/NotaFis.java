@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,7 +23,8 @@ import lombok.Data;
 public class NotaFis {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE , generator="seq_nf")
+	@SequenceGenerator(name="seq_nf", sequenceName="seq_nf" , initialValue=1)
 	private Long id;
 	@NotEmpty(message="O campo 'Numero da nota' deve ser preenchido")
 	private String numNF;

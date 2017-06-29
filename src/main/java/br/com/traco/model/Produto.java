@@ -3,7 +3,9 @@ package br.com.traco.model;
 import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
 
@@ -14,7 +16,8 @@ public class Produto {
 
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE , generator="seq_produto")
+	@SequenceGenerator(name="seq_produto", sequenceName="seq_produto" , initialValue=1)
 	private Long id;
 	private String nome;
 	private String dimensoes;

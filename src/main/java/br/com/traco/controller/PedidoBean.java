@@ -11,14 +11,18 @@ import org.omnifaces.util.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.traco.model.Pedido;
-import br.com.traco.model.StatusPedido;
 import br.com.traco.repository.PedidoRepository;
+import br.com.traco.service.PedidoService;
 import lombok.Data;
 
+//@ManagedBean
 @Named
 @Data
 @ViewScoped
 public class PedidoBean {
+	
+	@Autowired
+	private PedidoService service;
 	
 	@Autowired
 	private PedidoRepository dao;
@@ -36,20 +40,26 @@ public class PedidoBean {
 	
 	@PostConstruct
 	public void listar(){
-//		pedidosFechado = dao.fechados();
-		pedidos = dao.findAll();
+		pedidosFechado = dao.fechados();
+		pedidos = dao.abertos();
 		novo();
 		
 	}
 	
 	public void fechados(){
-//		pedidosFechado = dao.fechados();
+		pedidosFechado = dao.fechados();
 	}
+	
+	
 	
 	public void salvar(){
 		
 		try {
-			dao.save(pedido);
+			
+			service.salvar(pedido);
+			
+			
+//			dao.save(pedido);
 			
 			Messages.addGlobalInfo("Pedido " + pedido.getNumPedido() + " salvo com sucesso!");
 			System.out.println("Pedido " + pedido.getNumPedido() + " salvo com sucesso!");
@@ -94,27 +104,26 @@ public class PedidoBean {
 
 	}
 	
-	public void fechar(){
-		
+	
+	
+	public void fechar(ActionEvent evento) {
+
 		try {
+			pedido = (Pedido) evento.getComponent().getAttributes().get("pedSelecionado");
 
-//			pedido.setStatus(StatusPedido.FECHADO);
-//			dao.save(pedido);
-//			listar();
+			pedido.setStatus("FECHADO");
+			dao.save(pedido);
 
-Messages.addGlobalInfo("Pedido fechado com sucesso");
-System.out.println("O pedido " + pedido.getNumPedido() + "foi fechado com sucesso");
-			
-			
+			Messages.addGlobalInfo("Pedido fechado com sucesso");
+			System.out.println("O pedido " + pedido.getNumPedido() + "foi fechado com sucesso");
+
+			listar();
+
 		} catch (Exception e) {
-			// TODO: handle exception
+
+			e.printStackTrace();
+
 		}
 	}
-	
-	
-	
-	
-	
-	
 
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+
+	<ui:define name="conteudo">
+
+
+		<div style="text-align: center;">
+
+
+			<h:form id="formPed">
+
+				<p:dataTable id="dtbPed" emptyMessage="Nenhum registro encontrado"
+					widgetVar="dtRet" value="#{retiradaBean.retiradas}" var="ret" rows="10"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate="{CurrentPageReport}  {PreviousPageLink} {PageLinks} {NextPageLink}  {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,20,30,50" draggableColumns="true"
+					draggableRows="true">
+
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Consulta Global: " />
+							<p:inputText id="globalFilter" onkeyup="PF('dtRet').filter()"
+								style="width:150px" placeholder="Insira a consulta" />
+						</p:outputPanel>
+					</f:facet>
+
+
+					<p:column headerText="Id" sortBy="#{ret.id}" style="width:6%"
+						filterBy="#{ret.id}" filterMatchMode="contains"
+						filterStyle="display:none; visibility:hidden;">
+						<h:outputText value="#{ret.id}" />
+					</p:column>
+
+					<p:column headerText="quantidade" sortBy="#{ret.quantidade}"
+						filterBy="#{ret.quantidade}" style="width:25%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{ret.quantidade}" />
+					</p:column>
+
+
+					<p:column headerText="Data" sortBy="#{ret.data}"
+						filterBy="#{ret.data}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{ret.data}" />
+					</p:column>
+
+
+					<p:column headerText="Usuario" sortBy="#{ret.usuario}"
+						filterBy="#{ret.usuario}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{ret.usuario.nome}" />
+					</p:column>
+
+					<p:column headerText="Produto" sortBy="#{ret.produtoMovimentado}"
+						filterBy="#{ret.produtoMovimentado}" style="width:23%"
+						filterStyle="display:none; visibility:hidden;"
+						filterMatchMode="contains">
+						<h:outputText value="#{ret.produtoMovimentado.nome}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,8 @@ import lombok.Data;
 public class Usuario {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO , generator="seq_usuario")
+	@SequenceGenerator(name="seq_usuario", sequenceName="seq_usuario" , initialValue=1)
 	private Long id;
 	@NotEmpty(message="O campo 'Nome' deve ser preenchido")
 	private String nome;
