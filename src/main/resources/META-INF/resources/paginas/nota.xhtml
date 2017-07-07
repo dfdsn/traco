@@ -16,9 +16,10 @@
 				<p:panelGrid id="pnlCad" columns="4" layout="grid"
 					styleClass="ui-noborder">
 
-					<p:outputLabel value="Num Nota Fiscal:" />
+					<p:outputLabel value="Numero da Nota:" />
 					<p:inputText value="#{notaBean.fiscal.numNF}" />
 
+<p:outputLabel value="Pedido:" />
 	<p:selectOneMenu id="pedido" filter="true" value="#{notaBean.fiscal.pedido}" 
 	 required="true" requiredMessage="O campo 'Pedido' é obrigatório"
 	 converter="omnifaces.SelectItemsConverter">		
@@ -27,44 +28,18 @@
 				
 		<f:selectItems value="#{notaBean.pedidos}" var="pd"
 						 itemLabel="#{pd.qto}" itemValue="#{pd}" />
-				
-				
-<!-- 					<f:selectItems value="#{notaBean.pedidos}" /> -->
-					
-<!-- 					<f:selectItems value="#{notaBean.pedidos}" var="e" -->
-<!-- 						itemValue="#{e.id}" itemLabel="#{e.numPedido} |-| #{e.qto}" /> -->
+
 	</p:selectOneMenu>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 					<p:outputLabel value="Pedido Nota Fiscal:" /> -->
-<!-- 					<p:inputText value="#{notaBean.fiscal.pedido}" /> -->
-
-					<p:outputLabel value="Data Nota Fiscal:" />
+					<p:outputLabel value="Data Nota :" />
 					<p:calendar value="#{notaBean.fiscal.dataNF}" />
-
+					
+					<p:outputLabel value="Data Entrega :" />
+					<p:calendar value="#{notaBean.fiscal.dataEntrega}" />
 					<f:facet name="footer">
 <p:inputText value="#{notaBean.fiscal.id}" style="visibility:hidden; display:none;"/>
 

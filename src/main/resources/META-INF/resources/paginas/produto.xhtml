@@ -131,9 +131,11 @@
 							<f:attribute name="prodSelecionado" value="#{prod}" />
 						</p:commandButton>
 
+		
+
 						<p:commandButton icon="ui-icon-transferthick-e-w"
 							style="width:30px" onclick="PF('movimentacao_estoque').show()"
-							actionListener="#{produtoBean.editar}" update=":frmMov:pgMov">
+							actionListener="#{produtoBean.movimentar}" update=":frmCad:fielCad">
 							<f:attribute name="prodSelecionado" value="#{prod}" />
 						</p:commandButton>
 					</p:column>
@@ -155,6 +157,16 @@
 					widgetVar="movimentacao_estoque" showEffect="explode"
 					hideEffect="explode" height="100" id="mov">
 					<p:panelGrid columns="4" id="pgMov">
+				
+				
+							<p:outputLabel value="QTO:" />
+						<p:spinner value="#{produtoBean.produto.qtoRetirada}" />
+				
+				
+<ui:remove>					
+						<p:outputLabel value="Produto:" />
+						<p:outputLabel value="#{produtoBean.prodMov.nome}" />
+
 
 						<p:outputLabel value="Quantidade:" />
 						<p:spinner value="#{retiradaBean.retirada.quantidade}" />
@@ -171,27 +183,14 @@
 								itemValue="#{r}" itemLabel="#{r.nome}" />
 						</p:selectOneMenu>
 
-
-
-
-
-<ui:remove>
-						<p:outputLabel value="Produto:" />
-						
-						<p:selectOneMenu id="selecProduto" value="#{retiradaBean.retirada.produtoMovimentado}" 
-						filter="true" filterMatchMode="contains" converter="omnifaces.SelectItemsConverter" 
-						required="true" requiredMessage="O campo 'Produto' deve ser preenchido"	>
-						<f:selectItem noSelectionOption="true" itemLabel="Selecione o Produto" />
-						<f:selectItems value="#{retiradaBean.produtos}" var="p" itemValue="#{p}" itemLabel="#{p.nome}"/>
-						</p:selectOneMenu>
+						<p:outputLabel value="Data Retirada" />
+						<p:calendar value="#{retiradaBean.retirada.data}" />
+			
 </ui:remove>
 
 
-
-						<p:outputLabel value="Data Retirada" />
-						<p:calendar value="#{retiradaBean.retirada.data}" />
-						<p:commandButton value="salvar"
-							actionListener="#{retiradaBean.salvar}" />
+			
+						<p:commandButton value="salvar"	actionListener="#{retiradaBean.salvar}"  />
 
 					</p:panelGrid>
 				</p:dialog>

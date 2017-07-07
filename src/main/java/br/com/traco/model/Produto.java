@@ -1,5 +1,7 @@
 package br.com.traco.model;
 
+import java.util.Date;
+
 import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +25,10 @@ public class Produto {
 	private String dimensoes;
 	private Long qto;
 	private String qtoMin;
+	
+	private Integer qtoRetirada;
+	private Date dataRetirada;
+	
 	
 //	@OneToMany
 //	private Fornecedor fornecedor;

@@ -22,9 +22,7 @@ public class Empresa {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE , generator="seq_empresa")
 	@SequenceGenerator(name="seq_empresa", sequenceName="seq_empresa" , initialValue=1)
 	private Long id;
-	@CNPJ
-@Column(unique=true)
-	private String cnpj;
+	private String contato;
 	@NotEmpty
 	private String nome;
 	@NotEmpty

@@ -70,9 +70,19 @@ public class RetiradaBean {
 //	}
 	
 	
-	public void salvar(ActionEvent evento){
+//	public void salvar(Produto produto){
+//		
+//		retirada.setProdutoMovimentado(produto);		
+//		System.out.println("Valor da " + produto.getNome());
+//
+//
+//	}
+	
+	public void editar(ActionEvent evento){
 
 		produto = (Produto) evento.getComponent().getAttributes().get("prodSelecionado");
+		
+		System.out.println(produto);
 
 	}
 	

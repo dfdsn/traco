@@ -18,9 +18,7 @@
 
 
 
-					<p:outputLabel value="CNPJ:" />
-					<p:inputMask value="#{empresaBean.empresa.cnpj}"
-						mask="99.999.999/9999-99" />
+
 
 					<p:outputLabel value="Nome:" />
 					<p:inputText value="#{empresaBean.empresa.nome}" />
@@ -28,6 +26,10 @@
 					<p:outputLabel value="Tel:" />
 					<p:inputMask value="#{empresaBean.empresa.tel}"
 						mask="(99)-9-9999-9999" />
+
+					<p:outputLabel value="Contato:" />
+					<p:inputMask value="#{empresaBean.empresa.contato}"
+						mask="99.999.999/9999-99" />
 
 					<f:facet name="footer">
 
@@ -75,10 +77,10 @@
 					</p:column>
 
 
-					<p:column headerText="CNPJ" sortBy="#{emp.cnpj}"
-						filterBy="#{emp.cnpj}"
+					<p:column headerText="Contato" sortBy="#{emp.contato}"
+						filterBy="#{emp.contato}"
 						filterStyle="display:none; visibility:hidden;" style="width:15%">
-						<h:outputText value="#{emp.cnpj}" />
+						<h:outputText value="#{emp.contato}" />
 					</p:column>
 
 

@@ -37,6 +37,10 @@ public class NotaFis {
 	@NotEmpty(message="O campo 'Data da NF' deve ser preenchido")
 	@Temporal(TemporalType.DATE)
 	private Date dataNF;
+	
+	@NotEmpty(message="O campo 'Data da NF' deve ser preenchido")
+	@Temporal(TemporalType.DATE)
+	private Date dataEntrega;
 
 	
 }

@@ -13,5 +13,7 @@ public interface ProdutoRepo extends JpaRepository<Produto, Long>{
 	
 	@Query("select p from Produto p order by nome asc")
 	public List<Produto> todos();
+	
+	
 
 }

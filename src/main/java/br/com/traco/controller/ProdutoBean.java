@@ -12,18 +12,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.traco.model.Produto;
 import br.com.traco.repository.ProdutoRepo;
+import br.com.traco.service.ProdutoService;
 import lombok.Data;
 
 @Named
 @Data
 @ViewScoped
+//@ManagedBean
 public class ProdutoBean {
 	
 	@Autowired
 	private ProdutoRepo dao;
 	
 	@Autowired
+	ProdutoService service;
+	
+	@Autowired
 	private Produto produto;
+	
+	@Autowired
+	private Produto prodMov;
 	
 	private List<Produto> produtos;
 	
@@ -86,12 +94,45 @@ public class ProdutoBean {
 	public void editar(ActionEvent evento){
 
 		produto = (Produto) evento.getComponent().getAttributes().get("prodSelecionado");
+		
+		System.out.println(produto);
 
 	}
+
+	public void retirada(ActionEvent evento){
+		
+		produto = (Produto) evento.getComponent().getAttributes().get("prodSelecionado");
+		
+		System.out.println(prodMov +" teste schedule");
+	}
+
 	
+//	public void movimentar(ActionEvent evento){
+//		
+//		produto = (Produto) evento.getComponent().getAttributes().get("prodSelecionado");
+//		System.out.println(produto);
+//		
+//		
+//		System.out.println("==============================TESTES=================================");
+//		System.out.println(produto.getNome());
+//		System.out.println(produto.getQtoMin());
+//		System.out.println(produto.getQto());
+//		System.out.println(produto.getDimensoes());
+//		System.out.println("==============================TESTES=================================");
+//		
+//		
+//		
+//		
+//	}
 	
-	
-	
+	public void movimentar(ActionEvent evento){
+		
+		produto = (Produto) evento.getComponent().getAttributes().get("prodSelecionado");
+		
+		service.movimentar(produto);
+		
+		
+	}
 	
 	
 
